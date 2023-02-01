@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class PessoaService {
 
-    private PessoaRepository pessoaRepository;
+    private final PessoaRepository pessoaRepository;
 
     public PessoaDTO cadastrarPessoa(PessoaCreateDTO pessoaCreateDTO) {
         PessoaEntity pessoa = converterEmPessoaEntity(pessoaCreateDTO);
@@ -24,6 +24,19 @@ public class PessoaService {
         return converterEmPessoaDTO(pessoa);
     }
 
+    public PessoaDTO editarPessoa(Integer idPessoa, PessoaCreateDTO pessoaCreateDTO) {
+        PessoaEntity pessoa = buscarPessoaPorId(idPessoa);
+
+        pessoa.setNome(pessoaCreateDTO.getNome());
+        pessoa.setDataNascimento(pessoaCreateDTO.getDataNascimento());
+        pessoaRepository.save(pessoa);
+
+        return converterEmPessoaDTO(pessoa);
+    }
+
+    public PessoaEntity buscarPessoaPorId (Integer idPessoa){
+        return pessoaRepository.findById(idPessoa).get();
+    }
 
     public PessoaEntity converterEmPessoaEntity (PessoaCreateDTO pessoa) {
         PessoaEntity pessoaEntity = new PessoaEntity();
