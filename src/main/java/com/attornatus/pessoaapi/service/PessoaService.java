@@ -3,6 +3,7 @@ package com.attornatus.pessoaapi.service;
 import com.attornatus.pessoaapi.dto.pessoadto.PessoaCreateDTO;
 import com.attornatus.pessoaapi.dto.pessoadto.PessoaDTO;
 import com.attornatus.pessoaapi.entities.PessoaEntity;
+import com.attornatus.pessoaapi.exception.RegraDeNegocioException;
 import com.attornatus.pessoaapi.repository.PessoaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,7 @@ public class PessoaService {
         return converterEmPessoaDTO(pessoa);
     }
 
-    public PessoaDTO editarPessoa(Integer idPessoa, PessoaCreateDTO pessoaCreateDTO) {
+    public PessoaDTO editarPessoa(Integer idPessoa, PessoaCreateDTO pessoaCreateDTO) throws RegraDeNegocioException {
         PessoaEntity pessoa = buscarPessoaPorId(idPessoa);
 
         pessoa.setNome(pessoaCreateDTO.getNome());
@@ -34,8 +35,12 @@ public class PessoaService {
         return converterEmPessoaDTO(pessoa);
     }
 
-    public PessoaEntity buscarPessoaPorId (Integer idPessoa){
-        return pessoaRepository.findById(idPessoa).get();
+    public PessoaDTO consultarUmaPessoa (Integer idPessoa) throws RegraDeNegocioException {
+        return converterEmPessoaDTO(buscarPessoaPorId(idPessoa));
+    }
+
+    public PessoaEntity buscarPessoaPorId (Integer idPessoa) throws RegraDeNegocioException {
+        return pessoaRepository.findById(idPessoa).orElseThrow(() -> new RegraDeNegocioException("Não foi encontrado uma pessoa com o id " + idPessoa));
     }
 
     public PessoaEntity converterEmPessoaEntity (PessoaCreateDTO pessoa) {
