@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,7 +22,6 @@ public class PessoaEntity {
     private String nome;
     @Column(name = "data_nascimento")
     private LocalDate dataNascimento;
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "idEndereco", referencedColumnName = "id_endereco")
-    private EnderecoEntity endereco;
+    @OneToMany(mappedBy = "pessoa",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<EnderecoEntity> enderecos;
 }
