@@ -26,7 +26,7 @@ public class EnderecoController {
     private final EnderecoService enderecoService;
 
     @PostMapping("/cadastro")
-    public ResponseEntity<EnderecoDTO> cadastrarPessoa(@Valid
+    public ResponseEntity<EnderecoDTO> cadastrarEndereco(@Valid
                                                      @RequestBody EnderecoCreateDTO enderecoCreateDTO) throws RegraDeNegocioException {
         log.info("Iniciando cadastro do endereço");
         EnderecoDTO enderecoDTO = enderecoService.cadastrarEndereco(enderecoCreateDTO);
