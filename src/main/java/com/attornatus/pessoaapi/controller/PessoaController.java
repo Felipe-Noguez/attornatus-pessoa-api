@@ -1,5 +1,6 @@
 package com.attornatus.pessoaapi.controller;
 
+import com.attornatus.pessoaapi.controller.documentation.PessoaInterfaceController;
 import com.attornatus.pessoaapi.dto.paginacaodto.PageDTO;
 import com.attornatus.pessoaapi.dto.pessoadto.PessoaCreateDTO;
 import com.attornatus.pessoaapi.dto.pessoadto.PessoaDTO;
@@ -21,10 +22,11 @@ import java.time.LocalDate;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/pessoa")
-public class PessoaController {
+public class PessoaController implements PessoaInterfaceController {
 
     private final PessoaService pessoaService;
 
+    @Override
     @PostMapping("/cadastro")
     public ResponseEntity<PessoaDTO> cadastrarPessoa(@Valid
                                                      @RequestBody PessoaCreateDTO pessoaCreateDTO){
@@ -34,6 +36,7 @@ public class PessoaController {
         return new ResponseEntity<>(pessoaDTO, HttpStatus.CREATED);
     }
 
+    @Override
     @PutMapping("/atualizar-pessoa")
     public ResponseEntity<PessoaDTO> atualizarPessoa (@Valid
                                                       Integer idPessoa,
@@ -45,6 +48,7 @@ public class PessoaController {
         return new ResponseEntity<>(pessoaDTO, HttpStatus.CREATED);
     }
 
+    @Override
     @GetMapping("/consultar-uma-pessoa")
     public ResponseEntity<PessoaDTO> consultarUmaPessoa (Integer idPessoa) throws RegraDeNegocioException {
         log.info("Consultando usuário");
@@ -54,6 +58,7 @@ public class PessoaController {
         return new ResponseEntity<>(pessoaDTO, HttpStatus.OK);
     }
 
+    @Override
     @GetMapping("/listar-pessoas-com-paginacao")
     public ResponseEntity<PageDTO<PessoaDTO>> listarPessoasComPaginacao (@RequestParam(required = false) Integer idPessoa,
                                                                          @RequestParam(required = false)String nomePessoa,

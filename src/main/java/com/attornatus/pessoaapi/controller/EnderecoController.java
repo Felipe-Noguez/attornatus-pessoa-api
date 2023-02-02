@@ -1,5 +1,6 @@
 package com.attornatus.pessoaapi.controller;
 
+import com.attornatus.pessoaapi.controller.documentation.EnderecoInterfaceController;
 import com.attornatus.pessoaapi.dto.enderecodto.EnderecoCreateDTO;
 import com.attornatus.pessoaapi.dto.enderecodto.EnderecoDTO;
 import com.attornatus.pessoaapi.dto.enderecodto.EnderecoPessoaDTO;
@@ -21,10 +22,11 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/endereco")
-public class EnderecoController {
+public class EnderecoController implements EnderecoInterfaceController {
 
     private final EnderecoService enderecoService;
 
+    @Override
     @PostMapping("/cadastro")
     public ResponseEntity<EnderecoDTO> cadastrarEndereco(@Valid
                                                      @RequestBody EnderecoCreateDTO enderecoCreateDTO) throws RegraDeNegocioException {
@@ -34,6 +36,7 @@ public class EnderecoController {
         return new ResponseEntity<>(enderecoDTO, HttpStatus.CREATED);
     }
 
+    @Override
     @GetMapping("/listar-enderecos-com-paginacao")
     public ResponseEntity<PageDTO<EnderecoPessoaDTO>> listarPessoasComPaginacao (@RequestParam(required = false) Integer idEndereco,
                                                                                  @RequestParam(required = false) Integer idPessoa,
