@@ -3,8 +3,8 @@ package com.attornatus.pessoaapi.enums;
 import java.util.Arrays;
 
 public enum TipoEndereco {
-    RESIDENCIAL(0),
-    COMERCIAL(1),
+    PRINCIPAL(0),
+    SECUNDARIO(1),
     OUTRO(2);
 
     private Integer tipo;
