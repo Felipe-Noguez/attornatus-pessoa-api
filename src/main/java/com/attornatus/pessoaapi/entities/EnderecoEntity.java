@@ -3,6 +3,7 @@ package com.attornatus.pessoaapi.entities;
 import com.attornatus.pessoaapi.enums.TipoEndereco;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,7 +16,7 @@ import javax.persistence.*;
 public class EnderecoEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_endereco")
     private Integer idEndereco;
     @Column(name = "id_pessoa", insertable = false, updatable = false)
