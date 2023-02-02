@@ -3,7 +3,6 @@ package com.attornatus.pessoaapi.entities;
 import com.attornatus.pessoaapi.enums.TipoEndereco;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -19,7 +18,7 @@ public class EnderecoEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_endereco")
     private Integer idEndereco;
-    @Column(name = "id_pessoa", insertable = false, updatable = false)
+    @Column(name = "id_pessoa")
     private Integer idPessoa;
     @Column(name = "logradouro")
     private String logradouro;
@@ -29,11 +28,12 @@ public class EnderecoEntity {
     private Integer numero;
     @Column(name = "cidade")
     private String cidade;
+    @Enumerated(EnumType.ORDINAL)
     @Column(name = "tipo_endereco")
     private TipoEndereco tipoEndereco;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_pessoa", referencedColumnName = "id_pessoa")
+    @JoinColumn(name = "id_pessoa", referencedColumnName = "id_pessoa", insertable = false, updatable = false)
     private PessoaEntity pessoa;
 }
