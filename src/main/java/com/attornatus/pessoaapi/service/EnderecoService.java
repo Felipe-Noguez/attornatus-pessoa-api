@@ -4,7 +4,6 @@ import com.attornatus.pessoaapi.dto.enderecodto.EnderecoCreateDTO;
 import com.attornatus.pessoaapi.dto.enderecodto.EnderecoDTO;
 import com.attornatus.pessoaapi.dto.enderecodto.EnderecoPessoaDTO;
 import com.attornatus.pessoaapi.dto.paginacaodto.PageDTO;
-import com.attornatus.pessoaapi.dto.pessoadto.PessoaDTO;
 import com.attornatus.pessoaapi.entities.EnderecoEntity;
 import com.attornatus.pessoaapi.entities.PessoaEntity;
 import com.attornatus.pessoaapi.enums.TipoEndereco;
@@ -16,10 +15,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -35,6 +32,9 @@ public class EnderecoService {
 
         endereco.setIdPessoa(enderecoCreateDTO.getIdPessoa());
         pessoa.setEnderecos(Set.of(endereco));
+        if (enderecoCreateDTO.getTipoEndereco().equals(TipoEndereco.PRINCIPAL)) {
+            throw new RegraDeNegocioException("Você já possui um endereço principal!");
+        }
         EnderecoDTO enderecoDTO = objectMapper.convertValue(enderecoRepository.save(endereco), EnderecoDTO.class);
 
         return enderecoDTO;
@@ -61,30 +61,5 @@ public class EnderecoService {
                 page,
                 size,
                 enderecosPessoaDTO);
-    }
-
-    public EnderecoEntity converterEmEnderecoEntity (EnderecoCreateDTO endereco) {
-        EnderecoEntity enderecoEntity = new EnderecoEntity();
-        enderecoEntity.setIdPessoa(endereco.getIdPessoa());
-        enderecoEntity.setLogradouro(endereco.getLogradouro());
-        enderecoEntity.setCep(endereco.getCep());
-        enderecoEntity.setNumero(endereco.getNumero());
-        enderecoEntity.setCidade(endereco.getCidade());
-        enderecoEntity.setTipoEndereco(endereco.getTipoEndereco());
-
-        return enderecoEntity;
-    }
-
-    public EnderecoDTO converterEmEnderecoDTO (EnderecoEntity endereco) {
-        EnderecoDTO enderecoDTO = new EnderecoDTO();
-        enderecoDTO.setIdEndereco(endereco.getIdEndereco());
-        enderecoDTO.setIdPessoa(endereco.getIdPessoa());
-        enderecoDTO.setLogradouro(endereco.getLogradouro());
-        enderecoDTO.setCep(endereco.getCep());
-        enderecoDTO.setNumero(endereco.getNumero());
-        enderecoDTO.setCidade(endereco.getCidade());
-        enderecoDTO.setTipoEndereco(endereco.getTipoEndereco());
-
-        return enderecoDTO;
     }
 }
