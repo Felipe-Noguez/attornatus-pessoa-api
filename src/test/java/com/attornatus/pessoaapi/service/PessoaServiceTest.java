@@ -1,7 +1,6 @@
 package com.attornatus.pessoaapi.service;
 
 import com.attornatus.pessoaapi.dto.paginacaodto.PageDTO;
-import com.attornatus.pessoaapi.dto.pessoadto.PessoaCreateDTO;
 import com.attornatus.pessoaapi.dto.pessoadto.PessoaDTO;
 import com.attornatus.pessoaapi.entities.PessoaEntity;
 import com.attornatus.pessoaapi.exception.RegraDeNegocioException;
@@ -20,10 +19,11 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class PessoaServiceTest {
 

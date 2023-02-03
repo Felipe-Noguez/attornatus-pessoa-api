@@ -32,9 +32,6 @@ public class EnderecoService {
 
         endereco.setIdPessoa(enderecoCreateDTO.getIdPessoa());
         pessoa.setEnderecos(Set.of(endereco));
-        if (enderecoCreateDTO.getTipoEndereco().equals(TipoEndereco.PRINCIPAL)) {
-            throw new RegraDeNegocioException("Você já possui um endereço principal!");
-        }
         EnderecoDTO enderecoDTO = objectMapper.convertValue(enderecoRepository.save(endereco), EnderecoDTO.class);
 
         return enderecoDTO;
