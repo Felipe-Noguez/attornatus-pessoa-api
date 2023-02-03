@@ -74,7 +74,6 @@ public class EnderecoServiceTest {
 
     @Test(expected = RegraDeNegocioException.class)
     public void deveTestarCadastrarEnderecoComExcecao() throws RegraDeNegocioException {
-        EnderecoEntity enderecoEntity = EnderecoFactory.getEnderecoEntity();
         PessoaEntity pessoaEntity = PessoaFactory.getPessoaEntity();
         EnderecoCreateDTO enderecoCreateDTO = EnderecoFactory.getEnderecoCreateDTO();
         enderecoCreateDTO.setTipoEndereco(TipoEndereco.PRINCIPAL);
@@ -123,30 +122,15 @@ public class EnderecoServiceTest {
 
     }
 
-//    @Test(expected = RegraDeNegocioException.class)
-//    public void deveTestarListarEnderecosPaginadoComExcecaoIsEmpty() throws RegraDeNegocioException {
-//        int numeroPagina = 0;
-//        int tamanho = 10;
-//        Integer idEndereco = null;
-//        Integer idPessoa = null;
-//        String nome = null;
-//        String logradour = null;
-//        String cep = null;
-//        String cidade = null;
-//
-////        List<EnderecoPessoaDTO> listaVazia = new ArrayList<>();
-////
-////        PageDTO<EnderecoPessoaDTO> enderecoPessoaDTOPageDTO = new PageDTO<>(0L, 0, 0, tamanho, listaVazia);
-////
-////        PageDTO<EnderecoPessoaDTO> pageDTO = enderecoService.listarEnderecosPaginado(idEndereco, idPessoa, nome, logradour, cep, cidade, TipoEndereco.OUTRO, numeroPagina, tamanho);
-////
-////        assertNull(pageDTO);
-////        assertEquals(pageDTO, enderecoPessoaDTOPageDTO);
-//
-//        when(enderecoRepository.listarEnderecosPaginado(anyInt(), anyInt(), any(), any(), any(), any(), any(),any())).thenReturn(Page.empty());
-//
-//        PageDTO<EnderecoPessoaDTO> enderecoPessoaDTO = enderecoService.listarEnderecosPaginado(idEndereco, idPessoa, nome, logradour, cep, cidade, TipoEndereco.OUTRO, numeroPagina, tamanho);
-//
-//        verify(enderecoRepository, times(1)).listarEnderecosPaginado(anyInt(), anyInt(), any(), any(), any(), any(), any(),any());
-//    }
+    @Test(expected = RegraDeNegocioException.class)
+    public void deveTestarListarEnderecosPaginadoComExcecaoIsEmpty() throws RegraDeNegocioException {
+
+        int numeroPagina = 0;
+        int tamanho = 10;
+        PageRequest pageRequest = PageRequest.of(numeroPagina, tamanho);
+
+        when(enderecoRepository.listarEnderecosPaginado(null, null, null, null, null, null, null, pageRequest)).thenReturn(Page.empty());
+
+        enderecoService.listarEnderecosPaginado(null, null, null, null, null, null, null, numeroPagina, tamanho);
+    }
 }
