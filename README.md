@@ -23,13 +23,14 @@
 
 ## Para executar
 * Clonar o repositório: attornatus-pessoa-api
-* Configurar login e senha do banco de dados, diretamente no arquivo de configuração application.properties ou através da IDE, conforme print abaixo:
+* Configurar login e senha do banco de dados, diretamente no arquivo de configuração application.properties ou através da IDE, conforme imagem abaixo:
 
 ![Print da configuração de login e senha do bando H2](https://github.com/Felipe-Noguez/only-assets/blob/main/attornatus-api/IDE1.png?raw=true)
 
 * Executar a aplicação através da classe main
 * Acessar o banco no navegador utilizando a url: http://localhost:8080/h2
 * Inserir JDBC url, user name e password conforme configuração do arquivo application.properties, segue imagem abaixo para referência:
+
 ![Print de referência para configuração do acesso ao H2](https://github.com/Felipe-Noguez/only-assets/blob/main/attornatus-api/H2.png?raw=true)
 * Acessar o Swagger no navegador utilizando a url: http://localhost:8080/swagger-ui/index.html#/
 * No Swagger já existem exemplos para realizar cadastros, alterações e listar
