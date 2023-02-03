@@ -9,6 +9,7 @@
 * Com Swagger foi realizada a documentação de todos endpoints
 * Cobertura de 100% de testes do código das services (PessoaService e EnderecoService)
 * No arquivo data.sql contém inserções manuais no banco para facilitar o uso da aplicação
+* No repositório está o arquivo Avaliação Desenvolvedor Back-end Attornatus com as respostas
 
 ## Tecnologias utilizadas no desenvolvimento
 * Java JDK 17.0.4
